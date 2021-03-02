@@ -22,7 +22,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.reactnativefirebase",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.93311058423-hr007aq2lg3s01tr5uic4rk553habosn"
+        }
+      },
+      "googleServicesFile": "./GoogleService-Info.plist(1)"
     },
     "description": "Built by the team behind https://www.instamobile.io https://www.iosapptemplates.com https://www.instaflutter.com and https://www.instakotlin.com",
     "githubUrl": "https://github.com/instamobile/react-native-firebase"

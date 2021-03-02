@@ -1,14 +1,44 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
-import { firebase } from '../../firebase/config'
+import { firebase } from '../../firebase/config';
+
+var provider = new firebase.auth.GoogleAuthProvider();
+
+const onGooglePress = () => {
+    firebase
+        .auth
+        .then((result) => {
+    /** @type {firebase.auth.OAuthCredential} */
+    var credential = result.credential;
+
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    var token = credential.accessToken;
+    // The signed-in user info.
+    var user = result.user;
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+  });
+
+}
 
 export default function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+
+    
+
 
     const onFooterLinkPress = () => {
         navigation.navigate('Login')
@@ -45,6 +75,7 @@ export default function RegistrationScreen({navigation}) {
                 alert(error)
         });
     }
+    
 
     return (
         <View style={styles.container}>
@@ -55,9 +86,14 @@ export default function RegistrationScreen({navigation}) {
                     style={styles.logo}
                     source={require('../../../assets/icon.png')}
                 />
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => onGooglePress()}>
+                    <Text style={styles.buttonTitle}>Gooogle</Text>
+                </TouchableOpacity>
                 <TextInput
                     style={styles.input}
-                    placeholder='Full Name'
+                    placeholder='Fll Name'
                     placeholderTextColor="#aaaaaa"
                     onChangeText={(text) => setFullName(text)}
                     value={fullName}

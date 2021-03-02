@@ -15,6 +15,12 @@ export default StyleSheet.create({
         alignSelf: "center",
         margin: 30
     },
+    button:{
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+    },
     input: {
         height: 48,
         borderRadius: 5,
