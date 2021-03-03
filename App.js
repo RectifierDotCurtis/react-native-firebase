@@ -8,7 +8,28 @@ import {decode, encode} from 'base-64'
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
+const admin = require('firebase-admin');
+admin.initializeApp();
+
+const db = admin.firestore();
+
+admin.initializeApp({
+  credential: admin.credential.applicationDefault()
+});
+
 const Stack = createStackNavigator();
+firebase.firestore().enablePersistence()
+  .catch((err) => {
+      if (err.code == 'failed-precondition') {
+          // Multiple tabs open, persistence can only be enabled
+          // in one tab at a a time.
+          // ...
+      } else if (err.code == 'unimplemented') {
+          // The current browser does not support all of the
+          // features required to enable persistence
+          // ...
+      }
+  });
 
 export default function App() {
 
@@ -58,4 +79,5 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
   );
+  
 }
